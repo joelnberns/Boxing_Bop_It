@@ -20,8 +20,8 @@ int displayPinTen = 9;
 int pressureThreshold = 3;
 
 bool chooseCommand(int delay) {
-  int num = random(1, 4);
-  issueCommand(num);
+  int num = random(1, 4); // chooses command randomly
+  issueCommand(num); // issue command from speaker
   return executeCommand(num, delay)
 }
 
@@ -93,18 +93,17 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   score = 0;
-  int delayChange = 100;
-  int delay = 1000;
-  bool game_state = true;
+  int delayChange = 100; // milliseconds delay changes by each command
+  int delay = 1000; // original delay
+  bool game_state = true; // becomes false if user fails to issue command or issues wrong command
   bool game_won = false;
-  int i = 1;
-  while(digitalRead(blockPin) == LOW){
+  while(digitalRead(blockPin) == LOW){ // wait for block butto to be pressed to start the game
   }
   while(game_state && !game_won) {
     game_state = chooseCommand(delay);
     delay -= delayChange;
     i++
-    if(i == 100) {
+    if(score == 100) {
       game_won = true;
     }
     display_score(score);
