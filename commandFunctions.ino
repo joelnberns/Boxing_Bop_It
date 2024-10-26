@@ -4,7 +4,7 @@ bool chooseCommand(int delay) {
   return executeCommand(num, delay)
 }
 
-bool executeCommand(num, delay) {
+bool executeCommand(int num, int delay) {
   i = 0;
   while (i < delay) {
     pressure = analogRead(pressurePin);
