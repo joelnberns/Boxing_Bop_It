@@ -1,11 +1,12 @@
-void issueCommand(num) { // for now, commands are given by different tones
-  if (num == 1) {
-    tone(speakerPin, 440, 200);
-  }
-  else if (num == 2) {
-    tone(speakerPin, 494, 200);
-  }
-  else if (num == 3) {
-    tone(speakerPin, 523, 300);
-  }
+#include "globals.h"
+#include "SoftwareSerial.h"
+#include "DFRobotDFPlayerMini.h"
+
+// Initialize software serial on pins 10 and 11
+SoftwareSerial mySoftwareSerial(DFPlayerRXPin, DFPlayerTXPin);  // RX, TX
+DFRobotDFPlayerMini myDFPlayer;
+
+void issueCommand(char command) {
+  command_num = command - 48
+  myDFPlayer.play(command_num)
 }

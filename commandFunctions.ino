@@ -1,16 +1,29 @@
+#include "globals.h"
+
 bool chooseCommand(int delay) {
   int num = random(1, 4); // chooses command randomly
-  issueCommand(num); // issue command from speaker
-  return executeCommand(num, delay)
+  issueCommand((char)num); // issue command from speaker
+  return executeCommand(num, delay);
 }
 
-bool executeCommand(int num, int delay) {
-  i = 0;
-  while (i < delay) {
-    pressure = analogRead(pressurePin);
-    block = digitalRead(blockPin);
+bool executeCommand(int num, int dely) {
+  int i = 0;
+  while (i < dely) {
+    float pressure = analogRead(pressurePin);
+    int block = digitalRead(blockPin);
+    float zAccel = analogRead(accelPinZ);
+    float xAccel = analogRead(accelPinY);
+    float yAccel = analogRead(accelPinX);
     if (pressure > pressureThreshold) {
       if (num == 1) {
+        return success();
+      }
+      else {
+        return failure();
+      }
+    }
+    if (zAccel < zAccelLimit && yAccel < yAccelLimit && xAccel > xAccelThreshold) {
+      if (num == 2) {
         return success();
       }
       else {

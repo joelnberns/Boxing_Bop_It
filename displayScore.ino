@@ -1,37 +1,42 @@
-void turnOnDigit(int pin) {
-  digitalWrite(pin, LOW);
-}
+#include <math.h>
+#include "globals.h"
 
-void turnOffDigit(int pin) {
-  digitalWrite(pin, LOW);
-}
-
-void displayNum(int num) {
+void displayNum(int num, int offset) {
   if (num > 9) {
     return;
   }
   if ((num % 2) == 1) {
-    digitalWrite(displayPinZero, HIGH);
+    digitalWrite(offset, HIGH);
   }
   else {
-    digitalWrite(displayPinZero, LOW);
+    digitalWrite(offset, LOW);
   }
   if ((num == 2) || (num == 6) || (num == 7)) {
-    digitalWrite(displayPinOne, HIGH);
+    digitalWrite(offset+1, HIGH);
   }
   else {
-    digitalWrite(displayPinOne, LOW);
+    digitalWrite(offset+1, LOW);
   }
   if ((num > 3) && (num < 8)) {
-    digitalWrite(displayPinTwo, HIGH);
+    digitalWrite(offset+2, HIGH);
   }
   else {
-    digitalWrite(displayPinTwo, LOW);
+    digitalWrite(offset+2, LOW);
   }
   if (num > 7) {
-    digitalWrite(displayPinThree, HIGH);
+    digitalWrite(offset+3, HIGH);
   }
   else {
-    digitalWrite(displayPinThree, LOW);
+    digitalWrite(offset+3, LOW);
   }
 }
+
+void displayScore(int score) {
+  int tens = trunc(score / 10);
+  int ones = score % 10;
+  Serial.println(tens);
+  Serial.println(ones);
+  displayNum(tens, 5);
+  displayNum(ones, 0);
+  }
+
