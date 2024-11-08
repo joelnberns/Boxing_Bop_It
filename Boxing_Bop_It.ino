@@ -1,8 +1,17 @@
 #include "globals.h"
+#include<Wire.h>
+
 
 void loop() {
+  // Audio test
+  issueCommand(1);
+  delay(1000);
+  issueCommand(2);
+  delay(1000);
 
-  /*digitalWrite(5, HIGH);
+  /*
+  Pressure sensor test
+  digitalWrite(5, HIGH);
   digitalWrite(6, LOW);
   digitalWrite(7, LOW);
   digitalWrite(8, LOW);
@@ -11,7 +20,17 @@ void loop() {
     delay(1000);
     digitalWrite(LEDRedPin, LOW);
   }
-  */
+  
+  // accelerometer test
+    float zAccel = analogRead(accelPinZ);
+    float xAccel = analogRead(accelPinY);
+    float yAccel = analogRead(accelPinX);
+  if (xAccel > 0.1) {
+    digitalWrite(LEDRedPin, HIGH);
+    delay(1000);
+    digitalWrite(LEDRedPin, LOW);
+  }
+
   // put your main code here, to run repeatedly:
   score = 0;
   int delayChange = 100; // milliseconds delay changes by each command
@@ -23,10 +42,9 @@ void loop() {
   while(game_state && !game_won) {
     game_state = chooseCommand(delay);
     delay -= delayChange;
-    i++
     if(score == 100) {
       game_won = true;
     }
-    display_score(score);
-  }
+    displayScore(score);
+  } */
 }

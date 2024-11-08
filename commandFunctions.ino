@@ -11,6 +11,7 @@ bool executeCommand(int num, int dely) {
   while (i < dely) {
     float pressure = analogRead(pressurePin);
     int block = digitalRead(blockPin);
+    //accel_readings accel = read_accelerometer();
     float zAccel = analogRead(accelPinZ);
     float xAccel = analogRead(accelPinY);
     float yAccel = analogRead(accelPinX);
@@ -22,7 +23,8 @@ bool executeCommand(int num, int dely) {
         return failure();
       }
     }
-    if (zAccel < zAccelLimit && yAccel < yAccelLimit && xAccel > xAccelThreshold) {
+    //if (zAccel < zAccelLimit && yAccel < yAccelLimit && xAccel > xAccelThreshold) {
+      if (accel.z < zAccelLimit && accel.y < yAccelLimit && accel.x > xAccelThreshold) {
       if (num == 2) {
         return success();
       }

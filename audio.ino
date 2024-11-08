@@ -6,7 +6,6 @@
 SoftwareSerial mySoftwareSerial(DFPlayerRXPin, DFPlayerTXPin);  // RX, TX
 DFRobotDFPlayerMini myDFPlayer;
 
-void issueCommand(char command) {
-  command_num = command - 48
-  myDFPlayer.play(command_num)
+void issueCommand(int command) {
+  myDFPlayer.play(command);
 }
