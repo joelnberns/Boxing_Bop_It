@@ -11,7 +11,7 @@ void displayNum(int num, int offset) {
   else {
     digitalWrite(offset, LOW);
   }
-  if ((num == 2) || (num == 6) || (num == 7)) {
+  if ((num == 2) || (num == 3) || (num == 6) || (num == 7)) {
     digitalWrite(offset+1, HIGH);
   }
   else {
@@ -34,9 +34,7 @@ void displayNum(int num, int offset) {
 void displayScore(int score) {
   int tens = trunc(score / 10);
   int ones = score % 10;
-  Serial.println(tens);
-  Serial.println(ones);
-  displayNum(tens, 5);
-  displayNum(ones, 0);
+  displayNum(tens, 0);
+  displayNum(ones, 5);
   }
 

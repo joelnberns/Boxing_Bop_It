@@ -1,15 +1,16 @@
+#include "SoftwareSerial.h"
+#include "DFRobotDFPlayerMini.h"
 #ifndef HEADER_FILE_NAME
 #define HEADER_FILE_NAME
 
 int volatile score = 0;
-int blockPin = 10;
-int LEDGreenPin = 11;
+int blockPin = 9;
+int LEDGreenPin = 13;
 int LEDRedPin = 12;
-int speakerPin = 13;
 int pressurePin = 0;
-int accelPinZ = 1;
-int accelPinY = 2;
-int accelPinX = 3;
+int accelPinZ = A3;
+int accelPinY = A2;
+int accelPinX = A1;
 int displayPinA0 = 0;
 int displayPinA1 = 1;
 int displayPinA2 = 2;
@@ -21,16 +22,20 @@ int displayPinB3 = 8;
 int DFPlayerRXPin = 10;
 int DFPlayerTXPin = 11;
 
-float pressureThreshold = 3;
-float zAccelLimit = 1;
-float yAccelLimit = 1;
-float xAccelThreshold = 2;
+float pressureThreshold = 7.5;
+float zAccelLimit = 387;
+float yAccelThreshold = 335;
 
-bool chooseCommand(int delay);
-void issueCommand(char command);
-bool executeCommand(int num, int delay);
+// Initialize software serial on pins 10 and 11
+
+
+
+bool chooseCommand(int dely);
+void issueCommand(int command);
+void setVolume(int volume);
+bool executeCommand(int num, int dely);
 bool success();
 bool failure();
 void displayScore(int score);
-void displayNum(int num, int offset);
+void displayNum(int num, int offset); 
 #endif

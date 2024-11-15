@@ -2,6 +2,9 @@
 #include "SoftwareSerial.h"
 #include "DFRobotDFPlayerMini.h"
 
+DFRobotDFPlayerMini myDFPlayer;
+SoftwareSerial softSerial(DFPlayerRXPin, DFPlayerTXPin) ;
+
 void setup() {
   // put your setup code here, to run once:
   random(analogRead(4));
@@ -22,22 +25,17 @@ void setup() {
   pinMode(displayPinB3, OUTPUT);
 
     // Serial communication with the module
-  #if (defined ESP32)
-    FPSerial.begin(9600, SERIAL_8N1, /*rx =*/D3, /*tx =*/D2);
-  #else
-    FPSerial.begin(9600);
-  #endif
-  mySoftwareSerial.begin(9600);
+    softSerial.begin(9600);
   // Initialize Arduino serial
   // Check if the module is responding and if the SD card is found
 
-  if (!myDFPlayer.begin(mySoftwareSerial)) {
+  if (!myDFPlayer.begin(softSerial)) {
     digitalWrite(LEDGreenPin, HIGH);
     while (true);
   }
   // Initial settings
-  myDFPlayer.setTimeOut(500);  // Serial timeout 500ms
-  myDFPlayer.volume(20);        // Volume 5
+  //myDFPlayer.setTimeOut(500);  // Serial timeout 500ms
+  myDFPlayer.volume(10);        // Volume 5
   myDFPlayer.EQ(0);            // Normal equalization
   myDFPlayer.outputDevice(DFPLAYER_DEVICE_SD);
   //  myDFPlayer.EQ(DFPLAYER_EQ_POP);
@@ -46,19 +44,29 @@ void setup() {
   //  myDFPlayer.EQ(DFPLAYER_EQ_CLASSIC);
   //  myDFPlayer.EQ(DFPLAYER_EQ_BASS);
 
+  score = 99;
+
 }
 
 void loop() {
+
+  /*display test
+  for (int i = 0; i < 99; i++) {
+    displayScore(i);
+    delay(200);
+  }
+
   //Audio test
   //setVolume(15);
+  /*
+  delay(500);
   digitalWrite(LEDRedPin, HIGH);
   delay(1000);
-  myDFPlayer.play(1);
+  myDFPlayer.play(2);
   delay(1000);
   digitalWrite(LEDRedPin, LOW);
   delay(1000);
 
-  /*
   Pressure sensor test
   digitalWrite(5, HIGH);
   digitalWrite(6, LOW);
@@ -69,7 +77,6 @@ void loop() {
     delay(1000);
     digitalWrite(LEDRedPin, LOW);
   }
-  */
   
   // accelerometer test
     float zAccel = analogRead(accelPinZ);
@@ -80,23 +87,27 @@ void loop() {
       delay(1000);
     }
     digitalWrite(LEDRedPin, LOW);
-  /*
+  */
   
 
   // put your main code here, to run repeatedly:
-  score = 0;
-  int delayChange = 100; // milliseconds delay changes by each command
-  int delay = 1000; // original delay 
+  int delayChange = 0.93; // milliseconds delay changes by each command
+  int dely = 100; // original delay 
   bool game_state = true; // becomes false if user fails to issue command or issues wrong command
   bool game_won = false;
-  while(digitalRead(blockPin) == LOW){ // wait for block butto to be pressed to start the game
+  while(digitalRead(blockPin) == LOW) {
+    displayScore(score); // wait for block button to be pressed to start the game
   }
+  score = 0;
+  displayScore(score);
+  digitalWrite(LEDRedPin, LOW);
+  delay(1000);
   while(game_state && !game_won) {
-    game_state = chooseCommand(delay);
-    delay -= delayChange;
+    game_state = chooseCommand(dely);
+    dely -= delayChange;
     if(score == 100) {
       game_won = true;
     }
     displayScore(score);
-  } */
+  }
 }
